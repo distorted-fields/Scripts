@@ -29,10 +29,10 @@ function configure_dock(){
 	defaults write $userdock orientation -string bottom
 	defaults write $userdock autohide -bool true
 	defaults write $userdock show-recents -bool false
-	$dockutil --add "/Applications/Safari.app" --restart $userDock
-	$dockutil --add "/Applications/Google Chrome.app" --restart $userDock
-	$dockutil --add "/System/Applications/Utilities/Terminal.app" --restart $userDock
-	$dockutil --add '~/Downloads' --view grid --display folder --restart $userDock
+	$dockutil --add "/Applications/Safari.app" $userDock
+	$dockutil --add "/Applications/Google Chrome.app" $userDock
+	$dockutil --add "/System/Applications/Utilities/Terminal.app" $userDock
+	$dockutil --add '~/Downloads' --view grid --display folder $userDock
 	# kill system processes that prevent dock updates
 	killall cfprefsd
 	killall Dock
@@ -66,7 +66,12 @@ function install_sublime(){
 echo "Setting Timezone..."
 /usr/sbin/systemsetup -settimezone America/Chicago
 echo "Setting Name..."
-/usr/local/bin/jamf setcomputername -name "Distorted-Fields"
+if [ $(/usr/bin/arch) == "arm64" ]; then 
+	/usr/local/bin/jamf setcomputername -name "Counterfeit-Sky"
+else
+	/usr/local/bin/jamf setcomputername -name "Distorted-Fields"
+fi
+	
 # Configure Desktop
 echo "Setting Desktop picture..."
 curl -sLo /tmp/desktop.png 'https://drive.google.com/uc?export=download&id=1dpnKRPulUYWFeBNFTzcsw3v7Bl1vujrk'
@@ -82,6 +87,6 @@ chmod 775 /Users/$loggedInUser/Library/Preferences/com.apple.finder.plist
 killall cfprefsd
 killall Finder
 
-install_sublime
 install_chrome
+install_sublime
 configure_dock
