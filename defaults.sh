@@ -92,7 +92,7 @@ fi
 /usr/sbin/scutil --set HostName	"$name"
 #############################################################
 echo "Setting Desktop picture..."
-curl -sLo /tmp/desktop.png 'https://drive.google.com/uc?export=download&id=1Aw-YTYQ3eeoTsILhc_PLxy1dGu8NDweK'
+curl -sLo /Users/Shared/desktop.png 'https://drive.google.com/uc?export=download&id=1Aw-YTYQ3eeoTsILhc_PLxy1dGu8NDweK'
 sleep 3
 chmod 775 /tmp/desktop.png
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/tmp/desktop.png"'
