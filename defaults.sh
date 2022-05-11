@@ -34,7 +34,7 @@ function configure_dock(){
 	sleep 1
 	$dockutil --add "/System/Applications/Utilities/Terminal.app" $userDock
 	sleep 1
-	$dockutil --add '~/Downloads' --view grid --display folder $userDock
+	$dockutil --add '/Users/$loggedInUser/Downloads' --view grid --display folder $userDock
 	sleep 2
 	defaults write $userdock orientation -string bottom
 	defaults write $userdock autohide -bool true
@@ -94,8 +94,8 @@ fi
 echo "Setting Desktop picture..."
 curl -sLo /Users/Shared/desktop.png 'https://drive.google.com/uc?export=download&id=1Aw-YTYQ3eeoTsILhc_PLxy1dGu8NDweK'
 sleep 3
-chmod 775 /tmp/desktop.png
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/tmp/desktop.png"'
+chmod 775 /Users/Shared/desktop.png
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/Users/Shared/desktop.png"'
 #############################################################
 echo "Configuring Finder..."
 defaults write /Users/$loggedInUser/Library/Preferences/com.apple.finder.plist FXPreferredViewStyle -string "Nlsv"
