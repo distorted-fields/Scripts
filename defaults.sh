@@ -34,7 +34,7 @@ function configure_dock(){
 	sleep 1
 	$dockutil --add "/System/Applications/Utilities/Terminal.app" $userDock
 	sleep 1
-	$dockutil --add '/Users/$loggedInUser/Downloads' --view grid --display folder $userDock
+	$dockutil --add "~/Downloads" --view grid --display folder $userDock
 	sleep 2
 	defaults write $userdock orientation -string bottom
 	defaults write $userdock autohide -bool true
