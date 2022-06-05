@@ -69,7 +69,7 @@ function install_sublime(){
 	else 
 		echo "Installing Sublime..."
 		URL=$(curl -v https://www.sublimetext.com/download 2>&1| grep "mac.zip" | sed 's/^[^"]*"\([^"]*\)".*/\1/')
-		curl -sLo /tmp/sublime.zip $URL
+		curl -sLo /tmp/sublime.zip "https://www.sublimetext.com/download_thanks?target=mac"
 		unzip -qq /tmp/sublime.zip
 		mv "Sublime Text.app" /Applications
 		rm -rf /tmp/sublime.zip
