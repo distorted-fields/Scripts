@@ -114,9 +114,9 @@ function install_githubdesktop() {
 		echo "Github Desktop is already installed..."
 	else
 		if [ "$arch" == "arm64" ]; then
-			downloadURL=$"https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64"
+			downloadURL="https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64"
 		else
-			downloadURL=$"https://central.github.com/deployments/desktop/desktop/latest/darwin"
+			downloadURL="https://central.github.com/deployments/desktop/desktop/latest/darwin"
 		fi
 		curl -sLo /tmp/github.zip "${downloadURL}"
 		unzip -qq /tmp/github.zip
