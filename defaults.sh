@@ -75,6 +75,75 @@ function install_sublime(){
 		rm -rf /tmp/sublime.zip
 	fi
 }
+
+function install_1password() {
+	if [ -d "/Applications/1Password.app" ]; then
+		echo "1Password is already installed..."
+	else
+		if [[ $(arch) == "arm64" ]]; then
+        	archiveName="1Password-latest-aarch64.zip"
+        	op_latestVer_download="https://downloads.1password.com/mac/1Password-latest-aarch64.zip"
+    	elif [[ $(arch) == "i386" ]]; then
+        	archiveName="1Password-latest-x86_64.zip"
+        	op_latestVer_download="https://downloads.1password.com/mac/1Password-latest-x86_64.zip"
+    	fi
+		curl -sLo /tmp/1pass.zip "${op_latestVer_download}"
+		unzip -qq /tmp/1pass.zip
+		mv "1password.app" /Applications
+		rm -rf /tmp/1pass.zip
+	fi
+}
+
+function install_asana() {
+	if [ -d "/Applications/Asana.app" ]; then
+		echo "Asana is already installed..."
+	else
+		curl -sLo /tmp/asana.dmg "https://desktop-downloads.asana.com/darwin_x64/prod/latest/Asana.dmg"
+		TMPMOUNT=`/usr/bin/mktemp -d /tmp/asana.XXXX`
+		/usr/bin/hdiutil attach "/tmp/asana.dmg" -mountpoint "$TMPMOUNT" -nobrowse -noverify -noautoopen
+		cp -Rp $TMPMOUNT/"Asana.app" /Applications
+		sleep 2
+		/usr/bin/hdiutil detach "$TMPMOUNT"
+		rm -rf "$TMPMOUNT"
+		rm -rf "/tmp/asana.dmg"
+	fi
+}
+
+function install_githubdesktop() {
+	if [ -d "/Applications/Github Desktop.app" ]; then
+		echo "Github Desktop is already installed..."
+	else
+		if [ "$arch" == "arm64" ]; then
+			downloadURL=$"https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64"
+		else
+			downloadURL=$"https://central.github.com/deployments/desktop/desktop/latest/darwin"
+		fi
+		curl -sLo /tmp/github.zip "${downloadURL}"
+		unzip -qq /tmp/github.zip
+		mv "Github Desktop.app" /Applications
+		rm -rf /tmp/github.zip
+	fi
+}
+
+function install_slack() {
+	if [ -d "/Applications/Slack.app" ]; then
+		echo "Slack is already installed..."
+	else
+		if [ "$arch" == "arm64" ]; then
+			slackDownload="https://slack.com/ssb/download-osx-silicon"
+		else
+			slackDownload="https://slack.com/ssb/download-osx"
+		fi
+		curl -sLo /tmp/slack.dmg "$slackDownload"
+		TMPMOUNT=`/usr/bin/mktemp -d /tmp/slack.XXXX`
+		/usr/bin/hdiutil attach "/tmp/slack.dmg" -mountpoint "$TMPMOUNT" -nobrowse -noverify -noautoopen
+		cp -Rp $TMPMOUNT/"Slack.app" /Applications
+		sleep 2
+		/usr/bin/hdiutil detach "$TMPMOUNT"
+		rm -rf "$TMPMOUNT"
+		rm -rf "/tmp/slack.dmg"
+	fi
+}
 #############################################################
 # MAIN
 #############################################################
@@ -107,4 +176,8 @@ killall Finder
 #############################################################
 install_chrome
 install_sublime
+install_1password
+install_asana
+install_githubdesktop
+install_slack
 configure_dock
